@@ -1,0 +1,76 @@
+package com.mirkowu.intelligentelectrical.base;
+
+import com.mirkowu.intelligentelectrical.bean.AbnormalModule;
+import com.mirkowu.intelligentelectrical.bean.ChangPasswordBean;
+import com.mirkowu.intelligentelectrical.bean.ChangeDeviceKGOpenAndCloseBean;
+import com.mirkowu.intelligentelectrical.bean.DeviceInfoBean;
+import com.mirkowu.intelligentelectrical.bean.DeviceNameBean;
+import com.mirkowu.intelligentelectrical.bean.EquipmentMonitoringModule;
+import com.mirkowu.intelligentelectrical.bean.GetDeviceListBean;
+import com.mirkowu.intelligentelectrical.bean.LoginBean;
+import com.mirkowu.intelligentelectrical.bean.UserInfoEntity;
+import com.mirkowu.intelligentelectrical.bean.VerifyCodeBean;
+import com.mirkowu.intelligentelectrical.ui.deviceList.DeviceListEntity;
+import com.mirkowu.intelligentelectrical.ui.deviceoperate.RequestDeviceMessageBean;
+import com.mirkowu.intelligentelectrical.ui.module.DeviceKGOpenAndCloseModule;
+import com.mirkowu.intelligentelectrical.ui.statusview.RequestStatusBean;
+import com.mirkowu.intelligentelectrical.ui.statusview.StatusModule;
+
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+public interface ApiServer {
+    //public static final String host = "http://hxdq.123nat.com:8302/";
+    public static final String host = "http://192.168.1.13:8302/";
+
+    @POST("api/Ros/User/GetUserModel")
+    Observable<UserInfoEntity> loginByRx(@Body LoginBean loginBean);
+
+    /**
+     * 获取设备列表
+     *
+     * @param
+     * @return
+     */
+    //todo  类型转换 以及url的重新修改
+    @POST("api/Ros/Device/GetAllDeviceList")
+    Observable<DeviceListEntity> getDeviceList(@Body GetDeviceListBean getDeviceListBean);
+
+    /**
+     * 获取异常列表
+     */
+    @POST("api/Ros/Device/GetAllDeviceAbnormalList")
+    Observable<AbnormalModule> getAbnormalList(@Body RequestBody route);
+
+    /**
+     * 设备开关
+     */
+    @POST("api/Ros/Device/DeviceKGOpenAndClose")
+    Observable<DeviceKGOpenAndCloseModule> changedevicekgopenandclose(@Body ChangeDeviceKGOpenAndCloseBean route);
+
+    /**
+     * 设备监控
+     */
+    @POST("api/Ros/Device/GetDeviceMonitorList")
+    Observable<EquipmentMonitoringModule> getEquipmentMonitoring(@Body RequestBody route);
+
+
+    /**
+     * 召测
+     */
+    @POST("api/Ros/Device/ReadDeviceMessage")
+    Observable<BaseModel<Object>> test(@Body RequestDeviceMessageBean bean);
+
+    @POST("api/Ros/Device/InitializeDeviceParameter")
+    Observable<?> resectData(@Query("DeviceCode") String deviceCode);
+
+    /**
+     * 查看状态
+     *
+     * @param statusBean
+     * @return
+     */
+    @POST("api/Ros/Device/Device
