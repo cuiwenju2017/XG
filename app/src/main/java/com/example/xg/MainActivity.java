@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +29,7 @@ import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.android.tpush.common.Constants;
+import com.tencent.android.tpush.rpc.RemoteService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -111,7 +113,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 }
